@@ -1,0 +1,430 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Container for the whole collection page */
+.collections-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  /* Top bar containing button to add new collections */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Button to trigger new course modal */
+  .new-collection-btn {
+    background-color: #4A90E2; /* Updated color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* Container for individual courses */
+  .courses-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Individual course box */
+  .course-box {
+    width: calc(33.333% - 20px); /* Ensures three boxes per row */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Course information styling */
+  .course-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .course-info p {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Actions like edit and delete */
+  .course-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+
+  
+  /* Basic button styling outside and inside modal */
+.button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Modal content styling */
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Form controls within the modal */
+  .input-control {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Additional styles for modal buttons */
+  .modal-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  /* Footer styling if modal has footer */
+  .modal-footer {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* General container styling */
+.content-wrapper {
+    display: flex;
+    min-height: 100vh;
+    padding: 20px;
+    flex-direction: column;
+  }
+  
+  /* Ensures containers like modals or detailed views are centered and nicely padded */
+  .box {
+    max-width: 800px;
+    padding: 20px;
+    margin: 20px auto;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+/* Basic text styling, can be adapted for descriptions or headings */
+.text {
+    margin-bottom: 2px; /* Adjust based on layout needs */
+    font-size: 14px; /* Choose appropriate font size */
+  }
+  
+  /* Strong emphasis for titles or important info */
+  .text-bold {
+    font-weight: bold;
+  }
+  
+  /* Divider to separate sections clearly */
+  .divider {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  .button {
+    background-color: #007BFF; /* Typical blue button */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: none;
+    margin-top: 4px;
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+  }
+  
+  .video-section, .transcript-section {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .zoom-input, .file-input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .action-btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .file-input, .zoom-input, .summarize-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .control-btn {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .transcript-text {
+    height: 75%; /* Adjust based on your preference */
+    overflow-y: auto;
+  }
+  
+  .summarize-btn {
+    background-color: #007BFF;  /* A typical blue shade */
+    color: white;
+    border: none;
+    padding: 8px 16px;  /* Reduced padding for a smaller button */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;  /* Smaller font size */
+    border-radius: 5px;
+  }
+  
+  .react-player {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .presentation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.file-upload-section, .viewer-section, .transcript-section, .action-buttons {
+    margin-top: 20px;
+    width: 80%;
+    text-align: center;
+}
+
+.slide-viewer {
+    width: 100%;
+    height: 500px; /* Adjust based on your needs */
+    background-color: #f0f0f0; /* Placeholder if no slide is available */
+}
+
+.navigation-buttons button {
+    margin: 10px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.transcript-section {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.action-buttons button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.presentation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.viewer-section {
+  width: 80%; /* Adjust based on preference */
+  margin: 20px auto;
+}
+
+.slide-viewer img {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  border: 1px solid #ccc; /* Optional styling */
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.nav-button {
+  margin: 0 10px;
+  padding: 5px 10px; /* Smaller buttons */
+  font-size: 0.8rem;
+}
+
+.transcript-section {
+  width: 80%;
+  margin-top: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.icon-small {
+  font-size: 4px; /* Adjust size as needed */
+}
+
+.button-padding {
+  padding: 5px 10px; /* Smaller padding for a more compact appearance */
+}
+
+/* Add this to your CSS file or in a style tag */
+.scrollable-lectures {
+  display: flex;       /* Enable flexible box layout */
+  overflow-x: auto;    /* Allow horizontal scrolling */
+  white-space: nowrap; /* Prevent wrapping of items to ensure horizontal alignment */
+  padding: 4px;        /* Add some padding around */
+  background-color: #f0f0f0; /* Background color for visibility */
+}
+
+.lecture-item {
+  flex: none;          /* Do not grow or shrink */
+  width: 200px;        /* Fixed width for each lecture item */
+  height: 100px;       /* Fixed height for visibility */
+  background-color: #fff;
+  margin-right: 16px;  /* Space between items */
+  border-radius: 8px;  /* Rounded corners */
+  display: flex;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Shadow for better visibility */
+  cursor: pointer;
+}
+
+.course-container {
+  margin-bottom: 20px;
+}
+
+.lectures-container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.lecture-button {
+  min-width: 200px;
+  height: 100px;
+}
+
+.table th,
+.table td {
+  padding: 12px; /* Adjust padding as needed */
+  vertical-align: middle;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  color: #212529;
+  font-weight: bold;
+}
+
+.btn {
+  padding: 8px 16px; /* Adjust padding as needed */
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 20px; /* Adding border-radius for a slight curve */
+}
+
+.btn-success {
+  background-color: #9bc5c3; /* Light green color */
+  border-color: #9bc5c3;
+  color: #222; /* Dark text */
+}
+
+.btn-success:hover {
+  background-color: #bbe4e3; /* Lighter green color on hover */
+  border-color: #bbe4e3;
+}
+
+.btn-danger {
+  background-color: #f3acb5; /* Light red color */
+  border-color: #f3acb5;
+  color: #222; /* Dark text */
+}
+
+.btn-danger:hover {
+  background-color: #f7c5cd; /* Lighter red color on hover */
+  border-color: #f7c5cd;
+}
+
+.centered-table {
+    display: inline-block;
+    margin: 0 auto;
+  }
+  

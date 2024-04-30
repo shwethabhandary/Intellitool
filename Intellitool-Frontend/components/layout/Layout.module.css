@@ -1,0 +1,63 @@
+/* Container for the whole page */
+.rootContainer {
+    transition: margin-left 0.5s;
+    overflow-hidden: hidden;
+  }
+  
+  /* Navbar container that holds the hamburger icon and Navbar component */
+  .navbarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Hamburger menu styling */
+  .hamburger {
+    padding: 10px;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Above the drawer */
+  }
+  
+  /* Main content styling, adjusts when drawer is open */
+  .mainContent {
+    transition: margin-left 0.5s;
+  }
+  
+  /* Drawer styles */
+  .drawer {
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: width 0.5s;
+    z-index: 1000; /* High z-index but below hamburger */
+  }
+  
+  .drawer.open {
+    width: 20%; /* Width of the drawer when open */
+  }
+  
+  .drawerLink {
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: color 0.3s;
+  }
+  
+  .drawerLink:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Adjusts the main content area when drawer is open */
+  .contentShift {
+    margin-left: 10%;
+  }
+  
