@@ -427,5 +427,111 @@
     display: inline-block;
     margin: 0 auto;
   }
-
   
+  /* Dashboard.css */
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dashboard-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.dashboard-card {
+  width: calc(33.33% - 10px);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.dc0{
+  background-color: #F3F1F2;
+}
+.dc1{
+  background-color: #F0E7E9;
+}
+
+.dc2{
+  background-color: #EAD6DB;
+}
+.dc3{
+  background-color: #EDC3CE;
+}
+
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.user-table th {
+  text-align: left;
+}
+
+.user-table td {
+  text-align: center;
+}
+
+.accept-button,
+.delete-button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.accept-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+.user-tr-center{
+  text-align: center;
+}
+
+/* Style the tab buttons */
+.tab {
+  overflow: hidden;
+}
+
+.tab button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 35px;
+  transition: 0.3s;
+}
+
+.tab button:hover {
+  background-color: #EDC3CE;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.tabcontent.active {
+  display: block;
+  
+}
+
+
