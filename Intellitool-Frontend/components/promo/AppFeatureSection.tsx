@@ -2,6 +2,7 @@ import { ButtonLink } from '@/components';
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { bgLinearGradientClassName } from '@/styles/styles';
 
 export interface AppFeatureSectionProps {
   index: string;
@@ -51,7 +52,7 @@ export const AppFeatureSection = (props: AppFeatureSectionProps) => {
         <div className="flex flex-col justify-center space-y-0 md:space-y-8 w-[100%] md:w-[50%]">
           <div className="text-[18px]">{description}</div>
           <div className="">
-            <ButtonLink label="Try Now" href={href} />
+            <ButtonLink label="Join Now" href="/joinUs" />
           </div>
         </div>
       </div>

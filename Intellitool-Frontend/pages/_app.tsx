@@ -1,5 +1,6 @@
 import { Layout } from '@/components/layout';
 import '@/styles/globals.css';
+import '@/styles/joinus.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 

@@ -10,19 +10,22 @@ import {
 import StudentDashboard from '@/components/promo/StudentDashboard';
 import TeacherDashboard from '@/components/promo/TeacherDashboard';
 import AdminDashboard from '@/components/promo/AdminDashboard';
+import { getSession } from './session';
 
 export default function Home() {
+  
   const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState('');
+  const { isLoggedIn, username, role } = getSession()
 
   // Assume you have some logic to check if the user is logged in and retrieve their role
-  useEffect(() => {
-    const userLoggedIn = true;
-    const role = 'admin';
-    setIsLoggedIn(userLoggedIn);
-    setUserRole(role);
-  }, []);
+  // useEffect(() => {
+  //   const userLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  //   const storedUsername = localStorage.getItem("username")|| '';
+  //   const storedRole = localStorage.getItem("role")|| '';
+  //   setIsLoggedIn(userLoggedIn ?? false);
+  //   setUsername(storedUsername);
+  //   setUserRole(storedRole);
+  // }, []);
 
   // Define your feature sections
   const appFeatureSections: AppFeatureSectionProps[] = [
@@ -66,9 +69,9 @@ export default function Home() {
 
   return (
     <div>
-      {isLoggedIn && userRole === 'admin' && <AdminDashboard />}
-      {isLoggedIn && userRole === 'student' && <StudentDashboard />}
-      {isLoggedIn && userRole === 'teacher' && <TeacherDashboard />}
+      {isLoggedIn && role === 'admin' && <AdminDashboard />}
+      {isLoggedIn && role === 'student' && <StudentDashboard />}
+      {isLoggedIn && role === 'teacher' && <TeacherDashboard />}
       {!isLoggedIn && (
         <div>
           <HomeHero />

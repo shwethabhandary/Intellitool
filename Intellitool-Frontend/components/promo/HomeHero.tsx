@@ -1,9 +1,10 @@
-import { Box, Flex, Icon, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text, Button } from '@chakra-ui/react';
 import { FaArrowDown } from 'react-icons/fa';
 import Image from 'next/image';
 import { keyframes } from '@emotion/react';
 import Link from 'next/link';
 import { textLinearGradientClassName } from '@/styles/styles';
+import { bgLinearGradientClassName } from '@/styles/styles';
 
 export const HomeHero = () => {
   return (
@@ -46,11 +47,14 @@ export const HomeHero = () => {
             fontSize={['18px', '18px', '24px', '24px']}
             className={textLinearGradientClassName}
           >
-            Learn and Revise with GPT&nbsp;
+            Learn and Revise with us&nbsp;
           </Text>
           <Text as="span">📚</Text>
         </Flex>
       </Flex>
+        <Link href="/joinUs" className={`w-max px-3 py-2 text-white font-bold ${bgLinearGradientClassName}`}>
+        Join Now 
+        </Link>
 
       {/* Center Content */}
       <Flex position="relative" justifyContent="center" mx="18px" zIndex={1}>
@@ -90,7 +94,7 @@ export const HomeHero = () => {
           </Box>
         </Flex>
       </Flex>
-
+      
       {/* Down Arrow Icon */}
       <Icon
         as={FaArrowDown}

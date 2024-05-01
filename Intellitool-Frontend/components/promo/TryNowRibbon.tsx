@@ -9,10 +9,9 @@ interface TryNowRibbonProps {
 export const TryNowRibbon = ({ href }: TryNowRibbonProps) => {
   return (
     <Link
-      href={href}
-      className={`fixed top-1/2 right-[-24px] -rotate-90 w-max px-3 py-2 text-white font-bold ${bgLinearGradientClassName}`}
-    >
-      Try Now
+      href="/joinUs"
+      className={`fixed top-1/2 right-[-24px] -rotate-90 w-max px-3 py-2 text-white font-bold ${bgLinearGradientClassName}`}>
+      Join Now
     </Link>
   );
 };
