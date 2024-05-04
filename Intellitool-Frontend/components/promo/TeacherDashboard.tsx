@@ -9,6 +9,11 @@ const TeacherDashboard = () => {
   const [users, setUsers] = useState([
     { id: 1, username: 'user1', topic: 'cloud computing', viewed: false },
     { id: 2, username: 'user2', topic: 'data mining', viewed: false },
+    { id: 3, username: 'user1', topic: 'cloud computing', viewed: false },
+    { id: 4, username: 'user2', topic: 'data mining', viewed: false },
+    { id: 5, username: 'user1', topic: 'cloud computing', viewed: false },
+    { id: 6, username: 'user2', topic: 'data mining', viewed: false },
+    { id: 7, username: 'user1', topic: 'cloud computing', viewed: false },
     // Add more sample data as needed
   ]);
 
@@ -67,42 +72,74 @@ const TeacherDashboard = () => {
           <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {ToReview}</h2>
         </div>
       </div>
-      <h2 className={`${textLinearGradientClassName} font-bold text-lg mb-2`}> Review and approve the summeries sent by students</h2>
-      <table className="user-table">
-        <thead>
-          <tr className='user-tr-center'>
-            <th>Sl. No.</th>
-            <th>Username</th>
-            <th>Topic</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user.id}>
-              <td>{index + 1}</td>
-              <td>{user.username}</td>
-              <td>{user.topic}</td>
-              <td>
-                {user.viewed ? (
-                  <>
-                    <button className="approve-button" onClick={() => handleApprove(user.id)}>
-                      <FaCheck color="green" size={20} />
-                    </button>
-                    <button className="reject-button" onClick={() => handleReject(user.id)}>
-                      <FaTrash color="red" size={20} />
-                    </button>
-                  </>
-                ) : (
-                  <button className="view-button" onClick={() => handleView(user.id)}>
-                    <FaEye color="blue" size={20} />
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="dashboard-cards" style={{ display: 'flex', gap: '20px', paddingTop: '20px' }}>
+        {/* Left card (wider) */}
+        <div className="dashboard-card dc4" style={{ flex: '3' }}>
+          <div className="table-container">
+            <h2 className={`${textLinearGradientClassName} font-bold text-lg mb-2`}> Review and approve the summeries sent by students</h2>
+            <table className="user-table">
+              <thead>
+                <tr className='user-tr-center'>
+                  <th>Sl. No.</th>
+                  <th>Username</th>
+                  <th>Topic</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, index) => (
+                  <tr key={user.id}>
+                    <td>{index + 1}</td>
+                    <td>{user.username}</td>
+                    <td>{user.topic}</td>
+                    <td>
+                      {user.viewed ? (
+                        <>
+                          <button className="approve-button" onClick={() => handleApprove(user.id)}>
+                            <FaCheck color="green" size={20} />
+                          </button>
+                          <button className="reject-button" onClick={() => handleReject(user.id)}>
+                            <FaTrash color="red" size={20} />
+                          </button>
+                        </>
+                      ) : (
+                        <button className="view-button" onClick={() => handleView(user.id)}>
+                          <FaEye color="blue" size={20} />
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {/* Right card */}
+        <div className="dashboard-card dc5" style={{ flex: '1' }}>
+
+        <div className="id-card-tag"></div>
+          <div className="id-card-tag-strip"></div>
+          <div className="id-card-hook"></div>
+          <div className="id-card-holder">
+            <div className="id-card">
+              <div className="header">
+                <img src="https://www.sjsu.edu/communications/pics/SJSU%20_%20Online%20Stacked-01.png" alt="Header"/>
+              </div>
+              <div className="photo">
+                <img src="https://static.thenounproject.com/png/2909357-200.png" alt="Photo"/>
+              </div>
+              <h2>Email: {username}</h2>
+              <h2>Designation: {role}</h2>
+              <h3>www.sjsu.edu</h3>
+              <hr />
+              <p>One Washington Square</p>
+              <p>San Jose, California, USA <strong>95192</strong></p>
+              <p>Ph: +14089241601 | sjsu.edu/bursar</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
     </div>
   );
 };
