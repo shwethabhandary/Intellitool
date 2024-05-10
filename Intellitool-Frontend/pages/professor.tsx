@@ -10,10 +10,6 @@ export default function Professor() {
   const dummyProfessors = [
     { id: 1, name: "Dr. Alice Johnson", field: "Computer Science", courses: ["Data Structures", "Algorithms"], avatar: "/previews/avatar1.png" },
     { id: 2, name: "Dr. Bob Smith", field: "Mathematics", courses: ["Calculus", "Linear Algebra"], avatar: "/previews/avatar2.png" }
-    { id: 3, name: "Dr. Alice Johnson", field: "Computer Science", courses: ["Data Structures", "Algorithms"], avatar: "/previews/avatar1.png" },
-    { id: 4, name: "Dr. Bob Smith", field: "Mathematics", courses: ["Calculus", "Linear Algebra"], avatar: "/previews/avatar2.png" }
-    { id: 5, name: "Dr. Alice Johnson", field: "Computer Science", courses: ["Data Structures", "Algorithms"], avatar: "/previews/avatar1.png" },
-    { id: 6, name: "Dr. Bob Smith", field: "Mathematics", courses: ["Calculus", "Linear Algebra"], avatar: "/previews/avatar2.png" }
   ];
 
   useEffect(() => {

@@ -1,3 +1,43 @@
+// import { Modal, ModalProps } from '@/components/Modal';
+// import React, { useState, useEffect } from 'react';
+// import { signOut } from 'firebase/auth';
+// import { auth } from '@/firebase/firebaseService';
+// import { Input, InputGroup } from '@chakra-ui/react';
+// import { Button } from '@/components';
+// import { toast } from 'react-hot-toast';
+// import Link from 'next/link';
+// import { MY_CONSTANT } from '@/pages/session';
+
+// interface ModalUserProps {
+//   useDisclosure: ModalProps['useDisclosure'];
+//   currUser: any;
+// }
+
+// export const ModalUser = ({ useDisclosure, currUser }: ModalUserProps) => {
+//   const [apiKey, setApiKey] = useState<string | null>('');
+
+//   // useEffect(() => {
+//   //   if (!(localStorage.getItem('apiKey') === null)) {
+//   //     setApiKey(MY_CONSTANT);
+//   //   }
+//   // }, []);
+
+//   const logoutUser = async () => {
+//     signOut(auth)
+//       .then(() => {
+//         useDisclosure.onClose();
+//         toast.success('Logout successful.');
+//       })
+//       .catch(error => {
+//         console.log('error', error);
+//         toast.error('Failed to logout. Please try again.');
+//       });
+//   };
+//   return (
+//     <>
+//     </>
+//   );
+// };
 import { Modal, ModalProps } from '@/components/Modal';
 import React, { useState, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
@@ -54,13 +94,13 @@ export const ModalUser = ({ useDisclosure, currUser }: ModalUserProps) => {
           {/* Name */}
           <div>
             <span className="font-semibold">Name: </span>
-            <span>{currUser ? <>{currUser.displayName}</> : <></>}</span>
+            <span>SJSU Student Support</span>
           </div>
 
           {/* Email */}
           <div>
             <span className="font-semibold">Email: </span>
-            <span>{currUser ? <>{currUser.email}</> : <></>}</span>
+            <span>sjsu.studentSupport@sju.edu</span>
           </div>
 
           {/* API Key */}

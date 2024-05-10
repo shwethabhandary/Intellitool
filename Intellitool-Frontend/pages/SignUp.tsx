@@ -20,16 +20,43 @@ function SignUpForm() {
     evt.preventDefault();
 
     const { email, password, role } = state;
-    alert(
-      `You are signing up with email: ${email} and role: ${role}`
-    );
+    const randomId = Math.floor(Math.random() * 10000); // Generate random ID
+    const userData = {
+      role,
+      username: email,
+      id: randomId,
+      password
+    };
 
-    for (const key in state) {
+    fetch('http://localhost:8000/intellitool/addUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Handle success response
+      alert(`User added successfully with ID: ${data.id}`);
+      
+      // Clear form fields
       setState({
-        ...state,
-        [key]: ""
+        email: "",
+        password: "",
+        role: ""
       });
-    }
+    })
+    .catch(error => {
+      // Handle fetch error
+      console.error('Fetch Error:', error);
+      alert('An error occurred while adding user.');
+    });
   };
 
   return (
@@ -80,69 +107,5 @@ function SignUpForm() {
     </div>
   );
 }
-
-// export default SignUpForm;
-// import React from "react";
-// import { bgLinearGradientClassName } from '@/styles/styles';
-// function SignUpForm() {
-//   const [state, setState] = React.useState({
-//     name: "",
-//     email: "",
-//     password: ""
-//   });
-//   const handleChange = evt => {
-//     const value = evt.target.value;
-//     setState({
-//       ...state,
-//       [evt.target.name]: value
-//     });
-//   };
-
-//   const handleOnSubmit = evt => {
-//     evt.preventDefault();
-
-//     const { name, email, password } = state;
-//     alert(
-//       `You are sign up with name: ${name} email: ${email} and password: ${password}`
-//     );
-
-//     for (const key in state) {
-//       setState({
-//         ...state,
-//         [key]: ""
-//       });
-//     }
-//   };
-
-//   return (
-//     <div className="form-container sign-up-container">
-//       <form onSubmit={handleOnSubmit}>
-//         <h1>Create Account</h1>
-//         <input
-//           type="text"
-//           name="name"
-//           value={state.name}
-//           onChange={handleChange}
-//           placeholder="Name"
-//         />
-//         <input
-//           type="email"
-//           name="email"
-//           value={state.email}
-//           onChange={handleChange}
-//           placeholder="Email"
-//         />
-//         <input
-//           type="password"
-//           name="password"
-//           value={state.password}
-//           onChange={handleChange}
-//           placeholder="Password"
-//         />
-//         <button className={`w-max px-3 py-2 text-white font-bold ${bgLinearGradientClassName}`}>Sign Up</button>
-//       </form>
-//     </div>
-//   );
-// }
 
 export default SignUpForm;

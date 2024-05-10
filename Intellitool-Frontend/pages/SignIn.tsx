@@ -1,48 +1,119 @@
-import React from "react";
+import React, { useState } from "react";
 import { bgLinearGradientClassName } from '@/styles/styles';
-import { useRouter } from 'next/router'; 
-import { setSession } from "./session"; // Import session management utility
+import { useRouter } from 'next/router';
+import { setSession } from "./session";
 
 function SignInForm() {
-  const router = useRouter(); // Initialize useRouter hook
-
-  const [state, setState] = React.useState({
+  const router = useRouter();
+  const [state, setState] = useState({
     email: "",
     password: "",
-    role: ""
+    role: "",
+    uid:""
   });
+  const [error, setError] = useState("");
 
   const handleChange = evt => {
-    const value = evt.target.value;
+    const { name, value } = evt.target;
     setState({
       ...state,
-      [evt.target.name]: value
+      [name]: value
     });
   };
 
-  const handleOnSubmit = evt => {
+  // const handleOnSubmit = async evt => {
+  //   evt.preventDefault();
+  
+  //   const { email, password, role, uid } = state;
+  
+  //   try {
+  //     const response = await fetch("http://localhost:8000/intellitool/users");
+  //     if (!response.ok) {
+  //       throw new Error("Failed to fetch users");
+  //     }
+  //     const users = await response.json();
+  
+  //     let userFound = false;
+  //     users.forEach(user => {
+  //       if (user.username === email && user.password === password && user.role === role) {
+  //         setSession(true, email, role, user.id);
+  //         router.push("/");
+  //         userFound = true;
+  //       }
+  //     });
+  
+  //     if (!userFound) {
+  //       setError("Incorrect email, password, or role");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     setError("An error occurred while signing in");
+  //   }
+  // };
+
+  const handleOnSubmit = async (evt) => {
     evt.preventDefault();
+  
+    const { email, password, role, uid } = state;
+  
+    try {
+      // Fetch users
+      const response = await fetch("http://localhost:8000/intellitool/users");
+      console.log("response")
+        console.log(response);
+      if (!response.ok) {
+        throw new Error("Failed to fetch users");
+      }
+      const users = await response.json();
+  
+      // Check if the user exists in the users list
+      const user = users.find((user) => user.username === email && user.password === password && user.role === role);
+  
+      if (user.role === "admin"){
+        setSession(true, email, role, user.id);
+          router.push("/");
 
-    const { email, password, role } = state;
+      }
+      else if (user.role=== 'student' || user.role==='professor') {
+        // Fetch students or professors based on the role
+        const roleEndpoint = role === "student" ? "students" : "professors";
+        const roleResponse = await fetch(`http://localhost:8000/intellitool/${roleEndpoint}`);
+        console.log("role")
+        console.log(roleResponse);
+        if (!roleResponse.ok) {
+          throw new Error(`Failed to fetch ${roleEndpoint}`);
+        }
 
-    // Check if email, password, and role match the hardcoded values
-    if (email === "shwetha@gmail.com" && password === "1234" && role === "student") {
-      // Store session
-      setSession(true, email, role);
-      // Redirect to Home component upon successful login
-      router.push("/");
-    } else {
-      // Display alert for incorrect email/password
-      alert("Incorrect email or password");
+        const roleUsers = await roleResponse.json();
+  
+        // Check if the user exists in the students or professors list
+        const userExists = roleUsers.some((roleUser) => roleUser.name === email);
+        console.log("userExists")
+        console.log(userExists)
+  
+        if (userExists) {
+          // Authenticate the user and redirect to the home page
+          setSession(true, email, role, user.id);
+          router.push("/");
+        } 
+        else {
+          setError(`User not approved by Admin`);
+        }
+      } else {
+        setError("Incorrect email, password, or role");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setError("An error occurred while signing in");
     }
   };
-
+  
   return (
     <div className="form-container sign-in-container">
       <form onSubmit={handleOnSubmit}>
         <h1>Sign in</h1>
         <input
-        required
+          required
           type="email"
           placeholder="Email"
           name="email"
@@ -50,7 +121,7 @@ function SignInForm() {
           onChange={handleChange}
         />
         <input
-        required
+          required
           type="password"
           name="password"
           placeholder="Password"
@@ -58,7 +129,6 @@ function SignInForm() {
           onChange={handleChange}
         />
 
-        {/* Radio buttons for selecting role */}
         <div className="role-selection">
           <input
             type="radio"
@@ -89,10 +159,11 @@ function SignInForm() {
             onChange={handleChange}
           />
           <label htmlFor="admin">Admin</label>
-
         </div>
 
         <button type="submit" className={`w-max px-3 py-2 text-white font-bold ${bgLinearGradientClassName}`}>Sign In</button>
+
+        {error && <p className="text-red-500">{error}</p>}
       </form>
     </div>
   );
