@@ -69,14 +69,16 @@ function SignInForm() {
       // Check if the user exists in the users list
       const user = users.find((user) => user.username === email && user.password === password && user.role === role);
   
+      console.log(user.role);
       if (user.role === "admin"){
         setSession(true, email, role, user.id);
           router.push("/");
 
       }
-      else if (user.role=== 'student' || user.role==='professor') {
+      else if (user.role=== "student" || user.role==="teacher") {
         // Fetch students or professors based on the role
         const roleEndpoint = role === "student" ? "students" : "professors";
+        console.log(roleEndpoint);
         const roleResponse = await fetch(`http://localhost:8000/intellitool/${roleEndpoint}`);
         console.log("role")
         console.log(roleResponse);

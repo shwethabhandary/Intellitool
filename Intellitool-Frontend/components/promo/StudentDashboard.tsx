@@ -15,23 +15,21 @@ const StudentDashboard = () => {
 
   
 
-  const { Professor, TotalCourses, TodoList, Summeries } = { Professor: 3, TotalCourses: 4, TodoList: 5,  Summeries: 10 };
   const [fieldType, setFieldType] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { isLoggedIn, username, role } = getSession();
   const [professorsWithStudents, setProfessorsWithStudents] = useState([]);
   const [coursesEnrolled, setStudentCoursesTaken] = useState([]);
   const [classSchedules, setClassSchedules] = useState([]);
+  const [totalProfessor, setTotalProfessor] = useState([]);
+  const [totalCourses, setTotalCourses] = useState([]);
+  
 
   useEffect(() => {
-    if (activeTab === 1) {
       fetchProfessorsWithStudents();
-    } else if (activeTab === 2) {
       fetchStudentCourses();
-    }
-    else if (activeTab === 3) {
       fetchStudentCourses();
-      generateClassSchedules();}
+      generateClassSchedules();
   }, [activeTab]);
 
   const fetchProfessorsWithStudents = async () => {
@@ -53,7 +51,7 @@ const StudentDashboard = () => {
           courses.some(course => course.professor_id === professor.id && course.students.includes(username))
         )
       );
-  
+      setTotalProfessor(professorsWithStudents.length);
       setProfessorsWithStudents(professorsWithStudents);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -70,6 +68,7 @@ const StudentDashboard = () => {
   
       // Now you have the list of courses where the student is enrolled
       console.log('Student courses:', studentCourses);
+      setTotalCourses(studentCourses.length);
       setStudentCoursesTaken(studentCourses);
     } catch (error) {
       console.error('Error fetching student courses:', error);
@@ -106,20 +105,20 @@ const StudentDashboard = () => {
       <div className="dashboard-cards">
         <div className="dashboard-card dc0 ">
           <h3> Professors</h3>
-          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {Professor}</h2>
+          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {totalProfessor}</h2>
         </div>
         <div className="dashboard-card dc1 ">
           <h3> Enrolled Courses</h3>
-          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {TotalCourses}</h2>
+          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {totalCourses}</h2>
         </div>
         <div className="dashboard-card dc2">
-          <h3>To-do List</h3>
-          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {TodoList}</h2>
+          <h3>Classes/ week</h3>
+          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {totalCourses}</h2>
         </div>
-        <div className="dashboard-card dc3">
-          <h3>Total Summeries</h3>
+        {/* <div className="dashboard-card dc3">
+          <h3>Total Summaries</h3>
           <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {Summeries}</h2>
-        </div>
+        </div> */}
       </div>
       <div className="dashboard-cards" style={{ display: 'flex', gap: '50px', paddingTop: '20px' }}>
         {/* Left card (wider) */}
@@ -127,7 +126,7 @@ const StudentDashboard = () => {
           <div className="tab">
             <button className={`tablinks ${activeTab === 1 ? 'active' : ''}`} onClick={() => handleTabClick(1)} id="One">Professors</button>
             <button className={`tablinks ${activeTab === 2 ? 'active' : ''}`} onClick={() => handleTabClick(2)} id="Two">Enrolled Courses</button>
-            <button className={`tablinks ${activeTab === 3 ? 'active' : ''}`} onClick={() => handleTabClick(3)} id="Three">Summeries</button>
+            <button className={`tablinks ${activeTab === 3 ? 'active' : ''}`} onClick={() => handleTabClick(3)} id="Three">Class Schedule</button>
 
             <div id="One" className={`tabcontent ${activeTab === 1 ? 'active' : ''}`}>
   {isLoading ? (

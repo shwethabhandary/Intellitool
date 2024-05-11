@@ -18,6 +18,8 @@ const AdminDashboard = () => {
       // Fetch users data
       const usersResponse = await axios.get('http://localhost:8000/intellitool/users');
       const allUsers = usersResponse.data;
+      const adminUsers = usersResponse.data.filter(user => user.role === 'admin').map(user => user.username);
+      console.log(adminUsers);
   
       // Fetch students data
     const studentsResponse = await axios.get('http://localhost:8000/intellitool/students');
@@ -28,7 +30,7 @@ const AdminDashboard = () => {
     const professors = professorsResponse.data.map(professor => professor.name);
 
     // Combine students and professors into a single list
-    const excludedUsers = [...students, ...professors];
+    const excludedUsers = [...students, ...professors, ...adminUsers,];
       console.log(excludedUsers)
   
       // Initialize filteredUsers list
@@ -57,6 +59,9 @@ const AdminDashboard = () => {
   const handleApprove = async (user) => {
     try {
       const { username, id, role } = user;
+      console.log(username);
+      console.log(id);
+      console.log(role);
       const url = `http://localhost:8000/intellitool/admin/approveUser?role=${role}`;
       let postData = {};
   
@@ -65,7 +70,7 @@ const AdminDashboard = () => {
           username,
           id
         };
-      } else if (role === 'professor') {
+      } else if (role === 'teacher') {
         postData = {
           username,
           id,

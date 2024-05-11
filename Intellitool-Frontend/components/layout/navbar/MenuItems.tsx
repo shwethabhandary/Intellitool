@@ -75,6 +75,9 @@ import { auth } from '@/firebase/firebaseService';
 import { toast } from 'react-hot-toast';
 import { loginWithGoogle } from '@/firebase/login';
 import { getSession, clearSession, setSession } from '../../../pages/session'; 
+import Link from 'next/link';
+import { textLinearGradientClassName } from '@/styles/styles';
+import { bgLinearGradientClassName } from '@/styles/styles';
 
 interface MenuItemsProps {
   isOpen?: boolean;
@@ -82,49 +85,19 @@ interface MenuItemsProps {
 }
 
 export const MenuItems = ({ isOpen = false, links }: MenuItemsProps) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currUser, setCurrUser] = useState<any>(null);
+  const {isLoggedIn} = getSession();
 
-  const {
-    isOpen: isProfileModalOpen,
-    onOpen: onProfileModalOpen,
-    onClose: onProfileModalClose
-  } = useDisclosure();
 
-  const handleLogin = async () => {
-    await loginWithGoogle()
-      .then(() => {
-        setIsLoggedIn(true);
-        toast.success('Login successful.');
-      })
-      .catch(err => {
-        console.log('error', err);
-        toast.error('Failed to login. Please try again later.');
-      });
-  };
+  const handleLogout = () => {
+        clearSession();
+        window.location.reload();
+        toast.success('Logged out successfully.');
+      };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      if (user) {
-        setIsLoggedIn(true);
-        setCurrUser(user);
-        localStorage.setItem('userId', user.uid);
-      } else {
-        if (isLoggedIn) {
-          setIsLoggedIn(false);
-          setCurrUser(null);
-          clearSession();
-          toast.success('Logged out successfully.');
-          
-          // Redirect to the main page
-          window.location.href = '/'; // Replace '/' with the URL of your main page
-        }
-      }
     });
   
-    // Cleanup function to unsubscribe from the auth state listener
-    return () => unsubscribe();
-  }, [isLoggedIn]);
+  
   
 
 
@@ -145,25 +118,15 @@ export const MenuItems = ({ isOpen = false, links }: MenuItemsProps) => {
         {/* CTA Button -> Login / Profile */}
         <div className="mt-4 lg:mt-0">
           {!isLoggedIn ? (
-            <Button onClick={() => handleLogin()}>API Log</Button>
-          ) : (
-            <div
-              className="relative w-[36px] h-[36px] cursor-pointer"
-              onClick={onProfileModalOpen}
-            >
-              <Button> API Key</Button>
-            </div>
-          )}
+              <Link href="/joinUs" className={`w-max px-3 py-2 text-white font-bold ${bgLinearGradientClassName}`}>
+              LogIn 
+              </Link>
+            ) : (
+              <Button onClick={handleLogout}>Logout</Button>
+            )}
+          
         </div>
       </div>
-
-      <ModalUser
-        useDisclosure={{
-          isOpen: isProfileModalOpen,
-          onClose: onProfileModalClose
-        }}
-        currUser={currUser}
-      />
     </>
   );
 };

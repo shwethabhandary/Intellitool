@@ -12,18 +12,15 @@ const TeacherDashboard = () => {
   const [classSchedules, setClassSchedules] = useState([]);
   const { isLoggedIn, username, role, uid } = getSession();
   const userid = parseInt(uid, 10); // Convert string to integer
-  const { TotalStudent, TotalCourses, Aprooved, ToReview } = { TotalStudent: 3, Aprooved: 4, TotalCourses: 5, ToReview:4 };
+  const [TotalStudent, setTotalStudent]= useState([]);
+  const [TotalCourses, setTotalCourses]= useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
-    if (activeTab === 1) {
       fetchEnrolledStudents();
-    }
-    else if (activeTab === 2) {fetchCoursesTaught(userid);}
-    else if (activeTab === 3) {
+      fetchCoursesTaught(userid);
       generateClassSchedules();
-    }
   }, [activeTab]);
 
   const fetchCoursesTaught = async (userid) => {
@@ -36,6 +33,7 @@ const TeacherDashboard = () => {
       const courses = response.data.filter(course => course.professor_id === userid);
       console.log('Filtered courses:', courses);
       setCoursesTaught(courses);
+      setTotalCourses(courses.length);
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching courses taught:', error);
@@ -51,12 +49,17 @@ const TeacherDashboard = () => {
     try {
       const coursesResponse = await axios.get(`http://localhost:8000/intellitool/courses`);
       const courses = coursesResponse.data.filter(course => course.professor_id === userid);
+      let uniqueStudents = new Set();
       const enrolledStudents = courses.flatMap(course => {
         if (course.students && course.students.length > 0) {
+          course.students.forEach(student => {
+            uniqueStudents.add(student.email); // Add student email to the set
+        });
           return course.students.map(student => ({ student, course: course.name }));
         }
         return [];
       });
+        setTotalStudent(uniqueStudents.size); 
       setEnrolledStudents(enrolledStudents);
     } catch (error) {
       console.error('Error fetching enrolled students:', error);
@@ -102,6 +105,10 @@ const TeacherDashboard = () => {
         </div>
         <div className="dashboard-card dc1">
           <h3>Total Courses</h3>
+          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-6`}> {TotalCourses}</h2>
+        </div>
+        <div className="dashboard-card dc2">
+          <h3>Total Classes</h3>
           <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-6`}> {TotalCourses}</h2>
         </div>
       </div>
