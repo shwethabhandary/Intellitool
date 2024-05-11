@@ -7,7 +7,10 @@ import axios from 'axios'; // Import Axios
 const AdminDashboard = () => {
   const [fusers, setFilteredUsers] = useState([]);
   const { isLoggedIn, username, role } = getSession();
-  const { TotalStudent, TotalProfessor, TotalCourses } = { TotalStudent: 3, TotalProfessor: 4, TotalCourses: 5 };
+  const [totalStudent, setTotalStudent] = useState([]);
+  const [totalProfessor, setTotalProfessor] = useState([]);
+  const [totalCourses, setTotalCourses] = useState([]);
+  const [pendingGrant, setpendingGrant] = useState([]);
 
   useEffect(() => {
     fetchUsers(); // Fetch users when component mounts
@@ -24,10 +27,17 @@ const AdminDashboard = () => {
       // Fetch students data
     const studentsResponse = await axios.get('http://localhost:8000/intellitool/students');
     const students = studentsResponse.data.map(student => student.name);
+    setTotalStudent(students.length);
 
     // Fetch professors data
     const professorsResponse = await axios.get('http://localhost:8000/intellitool/professors');
     const professors = professorsResponse.data.map(professor => professor.name);
+    setTotalProfessor(professors.length);
+
+    // Fetch courses data
+    const coursesResponse = await axios.get('http://localhost:8000/intellitool/courses');
+    const courses = coursesResponse.data.map(course => course.id);
+    setTotalCourses(courses.length);
 
     // Combine students and professors into a single list
     const excludedUsers = [...students, ...professors, ...adminUsers,];
@@ -49,6 +59,7 @@ const AdminDashboard = () => {
   
       // Update users state with filtered users
       console.log(filteredUsers)
+      setpendingGrant(filteredUsers.length);
       setFilteredUsers(filteredUsers);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -108,17 +119,21 @@ const AdminDashboard = () => {
         <h2 className={`${textLinearGradientClassName} font-bold text-3xl mb-2`}> Admin dashboard</h2>
       </div>
       <div className="dashboard-cards">
+      <div className="dashboard-card dc1 ">
+          <h3> Pending Requesst</h3>
+          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {pendingGrant}</h2>
+        </div>
         <div className="dashboard-card dc1 ">
           <h3> Total Students</h3>
-          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {TotalStudent}</h2>
+          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {totalStudent}</h2>
         </div>
         <div className="dashboard-card dc2">
           <h3>Total Professors</h3>
-          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {TotalProfessor}</h2>
+          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {totalProfessor}</h2>
         </div>
         <div className="dashboard-card dc3">
           <h3>Total Courses</h3>
-          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {TotalCourses}</h2>
+          <h2 className={`${textLinearGradientClassName} font-bold text-6xl mb-2`}> {totalCourses}</h2>
         </div>
       </div>
       <h2 className={`${textLinearGradientClassName} font-bold text-lg mb-2`}> Grant / Deny Access to the Portal</h2>
